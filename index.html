@@ -232,10 +232,15 @@
       100%{opacity:0;background:#fff}
     }
 
+    /* ══ CONTENEUR CONTRÔLES (zoom + pad) ══ */
+    #control-cluster {
+      position:fixed; bottom:80px; right:24px; z-index:300;
+      display:none; flex-direction:column; align-items:center; gap:14px;
+    }
+
     /* ══ JOYSTICK DIRECTIONNEL ══ */
     #nav-pad {
-      position:fixed; bottom:80px; right:24px; z-index:300;
-      display:none; flex-direction:column; align-items:center; gap:3px;
+      display:flex; flex-direction:column; align-items:center; gap:3px;
     }
     .pad-row { display:flex; gap:3px; }
     .pad-btn {
@@ -258,8 +263,7 @@
     }
     /* Zoom +/- */
     #zoom-pad {
-      position:fixed; bottom:80px; right:80px; z-index:300;
-      display:none; flex-direction:column; gap:4px;
+      display:flex; flex-direction:column; gap:4px; align-items:center;
     }
     .zoom-btn {
       width:42px; height:42px; border-radius:50%;
@@ -521,29 +525,31 @@
 <!-- ══ Flash ══ -->
 <div id="flash"></div>
 
-<!-- ══ Joystick directionnel ══ -->
-<div id="nav-pad">
-  <div class="pad-row">
-    <div style="width:46px"></div>
-    <div class="pad-btn" id="pad-up"    data-dir="up">▲</div>
-    <div style="width:46px"></div>
+<!-- ══ Contrôles : zoom + joystick ══ -->
+<div id="control-cluster">
+  <!-- Zoom au-dessus -->
+  <div id="zoom-pad">
+    <div class="zoom-btn" id="zoom-in"  data-zoom="in">＋</div>
+    <div class="zoom-btn" id="zoom-out" data-zoom="out">－</div>
   </div>
-  <div class="pad-row">
-    <div class="pad-btn" id="pad-left"  data-dir="left">◀</div>
-    <div class="pad-center"></div>
-    <div class="pad-btn" id="pad-right" data-dir="right">▶</div>
+  <!-- Joystick en-dessous -->
+  <div id="nav-pad">
+    <div class="pad-row">
+      <div style="width:46px"></div>
+      <div class="pad-btn" id="pad-up"    data-dir="up">▲</div>
+      <div style="width:46px"></div>
+    </div>
+    <div class="pad-row">
+      <div class="pad-btn" id="pad-left"  data-dir="left">◀</div>
+      <div class="pad-center"></div>
+      <div class="pad-btn" id="pad-right" data-dir="right">▶</div>
+    </div>
+    <div class="pad-row">
+      <div style="width:46px"></div>
+      <div class="pad-btn" id="pad-down"  data-dir="down">▼</div>
+      <div style="width:46px"></div>
+    </div>
   </div>
-  <div class="pad-row">
-    <div style="width:46px"></div>
-    <div class="pad-btn" id="pad-down"  data-dir="down">▼</div>
-    <div style="width:46px"></div>
-  </div>
-</div>
-
-<!-- ══ Zoom +/- ══ -->
-<div id="zoom-pad">
-  <div class="zoom-btn" id="zoom-in"  data-zoom="in">＋</div>
-  <div class="zoom-btn" id="zoom-out" data-zoom="out">－</div>
 </div>
 
 <script>
@@ -957,8 +963,7 @@ const PAD_SPEED  = 1.2;   // degrés/frame
 const ZOOM_SPEED = 0.8;   // FOV/frame
 
 function showNavPad() {
-  document.getElementById('nav-pad').style.display  = 'flex';
-  document.getElementById('zoom-pad').style.display = 'flex';
+  document.getElementById('control-cluster').style.display = 'flex';
 }
 
 function bindPad(id, key, stateObj) {
